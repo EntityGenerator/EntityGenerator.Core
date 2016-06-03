@@ -15,9 +15,9 @@ namespace EntityGenerator.Core.Engines
 
         void InheritFromBaseClass(Type baseType);
 
-        void ImplementInterface(Type interfaceType);
+        void ImplementInterface(Type interfaceType, bool notifyPropertyChanged = false);
 
-        void ImplementProperty(string name, Type type);
+        void ImplementProperty(string name, Type type, bool notifyPropertyChanged = false);
 
         Type CreateType();
     }

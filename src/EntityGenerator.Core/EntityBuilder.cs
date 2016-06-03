@@ -40,7 +40,7 @@ namespace EntityGenerator.Core
             {
                 foreach (Type interfaceType in interfaces)
                 {
-                    engine.ImplementInterface(interfaceType);
+                    engine.ImplementInterface(interfaceType, asNotifyPropertyChanged);
                 }
             }
 
@@ -48,7 +48,7 @@ namespace EntityGenerator.Core
             {
                 foreach (PropertyDefinition property in properties)
                 {
-                    engine.ImplementProperty(property.Name, property.Type);
+                    engine.ImplementProperty(property.Name, property.Type, asNotifyPropertyChanged);
                 }
             }
 
