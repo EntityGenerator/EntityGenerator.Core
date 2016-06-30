@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,12 @@ namespace EntityGenerator.Core
         /// <param name="properties">The list of <seealso cref="PropertyDefinition"/> instances that define the properties that generated type will have.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
         IInstanceActivator GenerateBuilder(string typeName, params PropertyDefinition[] properties);
-
+        
         /// <summary>
         /// Generates a <seealso cref="Type"/> using the provided parameters and returns an <seealso cref="IInstanceActivator"/> that can be used to create instances of the generated <seealso cref="Type"/>.
         /// </summary>
         /// <param name="typeName">The name that will be used when generating the <seealso cref="Type"/>.</param>
-        /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <see cref="INotifyPropertyChanged"/> interface.</param>
+        /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <seealso cref="INotifyPropertyChanged"/> interface.</param>
         /// <param name="properties">The list of <seealso cref="PropertyDefinition"/> instances that define the properties that generated type will have.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
         IInstanceActivator GenerateBuilder(string typeName, bool asNotifyPropertyChanged, params PropertyDefinition[] properties);
