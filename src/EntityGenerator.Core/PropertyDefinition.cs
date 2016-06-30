@@ -6,31 +6,48 @@ using System.Threading.Tasks;
 
 namespace EntityGenerator.Core
 {
+    /// <summary>
+    /// Contains the metadata needed by the <see cref="ITypeGenerator"/> for generating a property.
+    /// </summary>
     public abstract class PropertyDefinition
     {
+        /// <summary>
+        /// Creates a new instance of <seealso cref="PropertyDefinition"/>.
+        /// </summary>
         public PropertyDefinition() { }
 
+        /// <summary>
+        /// Creates a new instance of <seealso cref="PropertyDefinition"/> using the given <paramref name="name"/> and <paramref name="type"/>.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="type">The <seealso cref="Type"/> of the property.</param>
         public PropertyDefinition(string name, Type type)
-            : this(name, type, null) { }
-
-        public PropertyDefinition(string name, Type type, object defaultValue)
         {
             Name = name;
             Type = type;
-            DefaultValue = defaultValue;
         }
 
+        /// <summary>
+        /// The name of the property.
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// The <see cref="Type"/> of the property.
+        /// </summary>
         public Type Type { get; private set; }
-        public object DefaultValue { get; set; }
     }
 
+    /// <summary>
+    /// Contains the metadata needed by the <see cref="ITypeGenerator"/> for generating a property.
+    /// </summary>
+    /// <typeparam name="TType">The <seealso cref="Type"/> of the property.</typeparam>
     public class PropertyDefinition<TType> : PropertyDefinition
     {
+        /// <summary>
+        /// Creates a new instance of <seealso cref="PropertyDefinition"/> using the given <paramref name="name"/> and <typeparamref name="TType"/> as the <see cref="Type"/> of the property.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
         public PropertyDefinition(string name)
-            : this(name, default(TType)) { }
-
-        public PropertyDefinition(string name, object defaultValue)
-            : base(name, typeof(TType), defaultValue) { }
+            : base(name, typeof(TType)) { }
     }
 }

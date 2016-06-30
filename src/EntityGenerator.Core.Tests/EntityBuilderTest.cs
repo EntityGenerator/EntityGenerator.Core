@@ -13,36 +13,36 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void CreateEmptyType()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", false);
 
-            Assert.AreEqual("TestType", instanceBuilder?.Type?.Name);
+            Assert.AreEqual("TestType", instanceBuilder?.GeneratedType?.Name);
         }
 
         [TestMethod]
         public void CreateTypeWithProperty()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, new[] { new PropertyDefinition<string>("TestProperty") });
 
-            Assert.IsNotNull(instanceBuilder?.Type?.GetProperty("TestProperty"));
+            Assert.IsNotNull(instanceBuilder?.GeneratedType?.GetProperty("TestProperty"));
         }
 
         [TestMethod]
         public void SetGetGeneratedProperty()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             PropertyInfo propertyInfo = null;
             object instance = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, new[] { new PropertyDefinition<string>("TestProperty") });
-            propertyInfo = instanceBuilder.Type.GetProperty("TestProperty");
-            instance = Activator.CreateInstance(instanceBuilder.Type);
+            propertyInfo = instanceBuilder.GeneratedType.GetProperty("TestProperty");
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType);
 
             propertyInfo.SetValue(instance, "TestValue");
 
@@ -52,13 +52,13 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void CreateFromBaseType()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             MockBaseType instance = null;
 
-            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, baseType: typeof(MockBaseType));
+            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, null, typeof(MockBaseType), null);
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as MockBaseType;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as MockBaseType;
 
             Assert.IsNotNull(instance);
         }
@@ -66,12 +66,12 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void SetGetFromBaseType()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             MockBaseType instance = null;
 
-            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, baseType: typeof(MockBaseType));
-            instance = Activator.CreateInstance(instanceBuilder.Type) as MockBaseType;
+            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, null, typeof(MockBaseType), null);
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as MockBaseType;
 
             instance.BaseProperty = "TestBaseValue";
 
@@ -81,13 +81,13 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void CreateFromInterface()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             IMockInterface instance = null;
 
-            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, interfaces: new[] { typeof(IMockInterface) });
+            instanceBuilder = entityBuilder.GenerateBuilder("TestType", false, null, null, new[] { typeof(IMockInterface) });
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as IMockInterface;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as IMockInterface;
 
             Assert.IsNotNull(instance);
         }
@@ -95,13 +95,13 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void CreateWithNotifyPropertyChanged()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             INotifyPropertyChanged instance = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", true);
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as INotifyPropertyChanged;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as INotifyPropertyChanged;
 
             Assert.IsNotNull(instance);
         }
@@ -109,14 +109,14 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void AddNotifyPropertyChangedHandler()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             INotifyPropertyChanged instance = null;
             Exception exception = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", true, new[] { new PropertyDefinition<string>("TestProperty") });
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as INotifyPropertyChanged;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as INotifyPropertyChanged;
 
             try
             {
@@ -133,14 +133,14 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void RemoveNotifyPropertyChangedHandler()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             INotifyPropertyChanged instance = null;
             Exception exception = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", true, new[] { new PropertyDefinition<string>("TestProperty") });
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as INotifyPropertyChanged;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as INotifyPropertyChanged;
 
             instance.PropertyChanged += (sender, e) => { };
 
@@ -159,16 +159,16 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void ExecuteOnPropertyChangedRaiser()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             INotifyPropertyChanged instance = null;
             MethodInfo methodInfo = null;
             Exception exception = null;
 
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", true, new[] { new PropertyDefinition<string>("TestProperty") });
-            methodInfo = instanceBuilder.Type.GetMethod("OnPropertyChanged", BindingFlags.NonPublic | BindingFlags.Instance);
+            methodInfo = instanceBuilder.GeneratedType.GetMethod("OnPropertyChanged", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as INotifyPropertyChanged;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as INotifyPropertyChanged;
 
             instance.PropertyChanged += (sender, e) => { };
 
@@ -187,16 +187,16 @@ namespace EntityGenerator.Core.Tests
         [TestMethod]
         public void SetWithNotifyPropertyChanged()
         {
-            EntityBuilder entityBuilder = new EntityBuilder();
-            IInstanceBuilder instanceBuilder = null;
+            ITypeGenerator entityBuilder = new TypeGenerator();
+            IInstanceActivator instanceBuilder = null;
             PropertyInfo propertyInfo = null;
             INotifyPropertyChanged instance = null;
             TaskCompletionSource<string> handlerSource = new TaskCompletionSource<string>();
             
             instanceBuilder = entityBuilder.GenerateBuilder("TestType", true, new[] { new PropertyDefinition<string>("TestProperty") });
-            propertyInfo = instanceBuilder.Type.GetProperty("TestProperty");
+            propertyInfo = instanceBuilder.GeneratedType.GetProperty("TestProperty");
 
-            instance = Activator.CreateInstance(instanceBuilder.Type) as INotifyPropertyChanged;
+            instance = Activator.CreateInstance(instanceBuilder.GeneratedType) as INotifyPropertyChanged;
             instance.PropertyChanged += (sender, e) => handlerSource.SetResult(e.PropertyName);
             
             propertyInfo.SetValue(instance, "TestValue");

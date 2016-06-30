@@ -76,14 +76,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engines\GenerationEngine.cs" />
-    <Compile Include="Engines\IGenerationEngine.cs" />
-    <Compile Include="IInstanceBuilder.cs" />
-    <Compile Include="InstanceBuilder.cs" />
-    <Compile Include="IEntityBuilder.cs" />
+    <Compile Include="Builders\EntityTypeBuilder.cs" />
+    <Compile Include="IInstanceActivator.cs" />
+    <Compile Include="InstanceActivator.cs" />
+    <Compile Include="ITypeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyDefinition.cs" />
-    <Compile Include="EntityBuilder.cs" />
+    <Compile Include="TypeGenerator.cs" />
+    <Compile Include="PropertySetter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EntityGenerator.Core.Engines
+namespace EntityGenerator.Core.Builders
 {
-    internal class GenerationEngine : IGenerationEngine
+    internal class EntityTypeBuilder
     {
         private const string EntitiesAssemblyName = "EntityGenerator.Core.DynamicEntities";
         private const string PropertyChangtedEventName = "PropertyChanged";
@@ -19,7 +19,7 @@ namespace EntityGenerator.Core.Engines
         private readonly Type PropertyChangedEventHandlerType = typeof(PropertyChangedEventHandler);
         private readonly Type PropertyChangedEventArgsType = typeof(PropertyChangedEventArgs);
 
-        public GenerationEngine()
+        public EntityTypeBuilder()
         {
             AssemblyName assemblyName = null;
 

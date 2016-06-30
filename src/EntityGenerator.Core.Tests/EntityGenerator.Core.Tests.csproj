@@ -92,6 +92,7 @@
     <Compile Include="Mocks\MockBaseType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EntityBuilderTest.cs" />
+    <Compile Include="InstanceBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EntityGenerator.Core\EntityGenerator.Core.csproj">
