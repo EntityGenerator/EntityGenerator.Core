@@ -44,7 +44,7 @@ namespace EntityGenerator.Core
         /// <param name="typeName">The name that will be used when generating the <seealso cref="Type"/>.</param>
         /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <see cref="INotifyPropertyChanged"/> interface.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
-        IInstanceActivator GenerateBuilder<TInterface>(string typeName, bool asNotifyPropertyCahnged);
+        IInstanceActivator GenerateBuilder<TInterface>(string typeName, bool asNotifyPropertyChanged);
 
         /// <summary>
         /// Generates a <seealso cref="Type"/> using the provided parameters and returns an <seealso cref="IInstanceActivator"/> that can be used to create instances of the generated <seealso cref="Type"/>.
@@ -63,7 +63,7 @@ namespace EntityGenerator.Core
         /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <see cref="INotifyPropertyChanged"/> interface.</param>
         /// <param name="properties">The list of <seealso cref="PropertyDefinition"/> instances that define the properties that generated type will have.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
-        IInstanceActivator GenerateBuilder<TInterface>(string typeName, bool asNotifyPropertyCahnged, params PropertyDefinition[] properties);
+        IInstanceActivator GenerateBuilder<TInterface>(string typeName, bool asNotifyPropertyChanged, params PropertyDefinition[] properties);
 
         /// <summary>
         /// Generates a <seealso cref="Type"/> using the provided parameters and returns an <seealso cref="IInstanceActivator"/> that can be used to create instances of the generated <seealso cref="Type"/>.
@@ -82,7 +82,7 @@ namespace EntityGenerator.Core
         /// <param name="typeName">The name that will be used when generating the <seealso cref="Type"/>.</param>
         /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <see cref="INotifyPropertyChanged"/> interface.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
-        IInstanceActivator GenerateBuilder<TBase, TInterface>(string typeName, bool asNotifyPropertyCahnged);
+        IInstanceActivator GenerateBuilder<TBase, TInterface>(string typeName, bool asNotifyPropertyChanged);
 
         /// <summary>
         /// Generates a <seealso cref="Type"/> using the provided parameters and returns an <seealso cref="IInstanceActivator"/> that can be used to create instances of the generated <seealso cref="Type"/>.
@@ -103,7 +103,7 @@ namespace EntityGenerator.Core
         /// <param name="asNotifyPropertyChanged">A <seealso cref="bool">boolean</seealso> value indicating whether the generated <seealso cref="Type"/> should implement the <see cref="INotifyPropertyChanged"/> interface.</param>
         /// <param name="properties">The list of <seealso cref="PropertyDefinition"/> instances that define the properties that generated type will have.</param>
         /// <returns>An instance of <seealso cref="IInstanceActivator"/>.</returns>
-        IInstanceActivator GenerateBuilder<TBase, TInterface>(string typeName, bool asNotifyPropertyCahnged, params PropertyDefinition[] properties);
+        IInstanceActivator GenerateBuilder<TBase, TInterface>(string typeName, bool asNotifyPropertyChanged, params PropertyDefinition[] properties);
 
         /// <summary>
         /// Generates a <seealso cref="Type"/> using the provided parameters and returns an <seealso cref="IInstanceActivator"/> that can be used to create instances of the generated <seealso cref="Type"/>.
